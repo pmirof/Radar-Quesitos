@@ -1,0 +1,75 @@
+body {
+  font-family: sans-serif;
+  background: #101d12;
+  color: #aafda9;
+  text-align: center;
+  margin: 0;
+  min-height: 100vh;                /* Ocupa toda la pantalla */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Un contenedor para centrar perfectamente el radar */
+.radar-container {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1 0 auto;
+}
+
+.radar {
+  width: min(92vw, 80vh);           /* Muy grande en móvil, más pequeño en horizontal */
+  height: min(92vw, 80vh);
+  max-width: 520px;
+  max-height: 520px;
+  margin: 0 auto;
+  border-radius: 50%;
+  background:
+    radial-gradient(closest-side, rgba(0,255,128,.18), transparent 60%),
+    repeating-radial-gradient(circle, rgba(0,255,128,.13) 0 2px, transparent 2px 16px),
+    repeating-conic-gradient(from 0deg, rgba(0,255,128,.07) 0 4deg, transparent 4deg 15deg);
+  background-color: #061a0e;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 44px rgba(0,255,128,.17) inset;
+  aspect-ratio: 1/1;
+  /* Para browsers legacy: usa height igual que width */
+}
+
+.sweep {
+  position: absolute;
+  inset: -5%;
+  background: conic-gradient(from 0deg, rgba(0,255,128,0.0), rgba(0,255,128,.34) 10deg, rgba(0,255,128,0.0) 20deg);
+  animation: spin 3s linear infinite;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.blip {
+  position: absolute;
+  /* Tamaño quesito grande, responsive: 20vw hasta mínimo 80px */
+  width: min(20vw, 80px); /* será grande incluso en pantallas pequeñas */
+  height: min(20vw, 80px);
+  border-radius: 50%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  opacity: .2;
+  transition: opacity .2s, box-shadow .2s, transform .2s;
+  pointer-events: none;
+  z-index: 2;
+}
+.blip.active {
+  opacity: 1;
+  box-shadow: 0 0 44px #43fe43, 0 0 12px #fff5;
+  transform: translate(-50%, -50%) scale(1.35);
+}
+.blip img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
